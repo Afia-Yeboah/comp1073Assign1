@@ -2,7 +2,7 @@
 //column 1
 const subjects = ["The King", "This girl", "The book", "The dog", "My friend"];
 //column 2
-const verbs = ["ate", "saw", "slept","hugged", "thought"];
+const verbs = ["ate", "saw", "created","hugged", "thought"];
 //column 3
 const adjectives = ["a giant", "a magical", "a dirty", "a spooky", "a scruffy"];
 //column 4
@@ -41,12 +41,12 @@ let storyOutput = document.getElementById("storyOutput");
 tellStoryBtn.addEventListener("click", function() {
     for (let i = 0; i < slots.length; i++) {
         if (!slots[i].textContent) {
-            storyOutput.textContent = "Please spin all slots to create a story!";
+            storyOutput.textContent = "Please spin all slots to create your story!";
             return;
         };
     };
 
-    // Loop through the story string
+    // Loop through the slots to build the story
     let story = "";
     for (let i = 0; i < slots.length; i++) {
         story += slots[i].textContent + (i === slots.length - 1 ? " . " : " ");
@@ -54,3 +54,15 @@ tellStoryBtn.addEventListener("click", function() {
     // Display the entire story
     storyOutput.textContent = story;
 });
+
+// Reset the slots and story output
+function resetSlots() {
+    for (let i = 0; i < slots.length; i++) {
+        slots[i].textContent = "";
+    }
+    storyOutput.textContent = "";
+}
+
+// Add event listener to the reset button
+let resetButton = document.getElementById("resetSlots");
+resetButton.addEventListener("click", resetSlots);
