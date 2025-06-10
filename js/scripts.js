@@ -1,31 +1,56 @@
-// Declaring the lists using array
+// Defining arrays of words for each slot in the columns
 //column 1
-const subjects = ["The crane", "Miss", "Dad", "The dog", "My friend"];
+const subjects = ["The King", "This girl", "The book", "The dog", "My friend"];
 //column 2
-const verbs = ["ate", "saw", "walked with","hugged", "couldn't find"];
+const verbs = ["ate", "saw", "slept","hugged", "thought"];
 //column 3
-const adjectives = ["a giant", "a magical", "a tiny", "a spooky", "a slimy"];
+const adjectives = ["a giant", "a magical", "a dirty", "a spooky", "a scruffy"];
 //column 4
 const objects = ["frog", "sandals", "pizza", "banana", "table"];
 //column 5
-const places =["in the park", "on my bed", "under the table", "at school", "in space"];
+const places =["in the park", "on my bed", "under the table", "at church", "at the bottom"];
 
-// Returning a random element from the arrays
+// Get a random element from an array
 function getRandomItem (array) {
-    let randomItem = array[Math.floor(Math.random() * array.length)];
-    return randomItem;
+    let randomItem = Math.floor(Math.random() * array.length);
+    return array[randomItem];
 };
 
-// Retrieving each button and spin using the ids
-let spin1 = document.getElementById("spin1");
-let spin2 = document.getElementById("spin2");
-let spin3 = document.getElementById("spin3");
-let spin4 = document.getElementById("spin4");
-let spin5 = document.getElementById("spin5");
+// Get the elements for slots and spin the buttons
+let slots = [];
+let spinButtons = [];
+for (let i = 1; i <= 5; i++) {
+    slots.push(document.getElementById(`slot${i}`));
+    spinButtons.push(document.getElementById(`spin${i}`));
+};
 
-// Display the slots assigned the button
-let slot1 = document.getElementById("slot1");
-let slot2 = document.getElementById("slot2");
-let slot3 = document.getElementById("slot3");
-let slot4 = document.getElementById("slot4");
-let slot5 = document.getElementById("slot5");
+// Function to spin the button with a loop and a corresponding word list
+let wordLists = [subjects, verbs, adjectives, objects, places];
+for (let i = 0; i < spinButtons.length; i++) {
+    spinButtons[i].addEventListener("click", function() {
+        let currentWordList = wordLists[i];
+        let randomWord = getRandomItem(currentWordList);
+        slots[i].textContent = randomWord;
+    });
+}
+
+// Function to generate the full sentence
+let tellStoryBtn = document.getElementById("tellStory");
+let storyOutput = document.getElementById("storyOutput");
+
+tellStoryBtn.addEventListener("click", function() {
+    for (let i = 0; i < slots.length; i++) {
+        if (!slots[i].textContent) {
+            storyOutput.textContent = "Please spin all slots to create a story!";
+            return;
+        };
+    };
+
+    // Loop through the story string
+    let story = "";
+    for (let i = 0; i < slots.length; i++) {
+        story += slots[i].textContent + (i === slots.length - 1 ? " . " : " ");
+    }
+    // Display the entire story
+    storyOutput.textContent = story;
+});
