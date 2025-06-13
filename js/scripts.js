@@ -84,7 +84,7 @@ function resetSlots() {
 let resetButton = document.getElementById("resetSlots");
 resetButton.addEventListener("click", resetSlots);
 
-// Using hover, focus and blur effect on spinning the buttons
+// Using hover, focus effect on spinning the buttons
 for (let btn of spinButtons) {
     btn.addEventListener("mouseover", () => {
         btn.style.border = "2px solid yellow";
