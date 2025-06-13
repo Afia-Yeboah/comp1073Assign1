@@ -1,14 +1,14 @@
 // Defining arrays of words for each slot in the columns
 //column 1
-const subjects = ["The King", "This girl", "The book", "The dog", "My friend"];
+const subjects = ["The King", "Mom", "The boy", "The dog", "My friend"];
 //column 2
-const verbs = ["ate", "saw", "created","hugged", "thought"];
+const verbs = ["ate", "sat on", "created","hugged", "picked"];
 //column 3
 const adjectives = ["a giant", "a magical", "a dirty", "a spooky", "a scruffy"];
 //column 4
-const objects = ["frog", "sandals", "pizza", "banana", "table"];
+const objects = ["frog", "sandals", "pizza", "monkey", "bug"];
 //column 5
-const places =["in the park", "on my bed", "under the table", "at church", "at the bottom"];
+const places =["in the park", "on my bed", "under the table", "at church", "in my juice"];
 
 // Get a random element from an array
 function getRandomItem (array) {
@@ -31,6 +31,13 @@ for (let i = 0; i < spinButtons.length; i++) {
         let currentWordList = wordLists[i];
         let randomWord = getRandomItem(currentWordList);
         slots[i].textContent = randomWord;
+
+        // using an article from MDN: https://developer.mozilla.org/en-US/docs/Web/API/SpeechSynthesisUtterance 
+        // The voice speech triggers the browser to speak whenever the button is spun and speak the final story when created
+        let spinUtter = new SpeechSynthesisUtterance(randomWord);
+        speechSynthesis.speak(spinUtter);
+        slots[i].style.border = "";
+
     });
 }
 
@@ -67,8 +74,12 @@ tellStoryBtn.addEventListener("click",()=> {
     for (let i = 0; i < slots.length; i++) {
         story += slots[i].textContent + (i === slots.length - 1 ? "." : " ");
     }
-    // Display the entire story
+
+    // Display text and speak the story
     storyOutput.textContent = story;
+    storyOutput.style.color = "";
+    let storyUtter = new SpeechSynthesisUtterance(story);
+    speechSynthesis.speak(storyUtter);
 });
 
 // Reset the slots and story output
