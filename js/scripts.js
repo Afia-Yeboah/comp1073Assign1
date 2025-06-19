@@ -45,11 +45,11 @@ for (let i = 0; i < spinButtons.length; i++) {
 let tellStoryBtn = document.getElementById("tellStory");
 let storyOutput = document.getElementById("storyOutput");
 
-// Add a prevent default action to the button
+// using an eventListener to wait for a click on the button to happen
 tellStoryBtn.addEventListener("click",()=> {
     let storyComplete = true;
 
-    // Check if all slots have been filled
+    // Use fo loops to : Check if all slots have been filled
     for (let i = 0; i < slots.length; i++) {
         if (!slots[i].textContent) {
             storyComplete = false;
@@ -75,7 +75,7 @@ tellStoryBtn.addEventListener("click",()=> {
         story += slots[i].textContent + (i === slots.length - 1 ? "." : " ");
     }
 
-    // Display text and speak the story
+    // Display text and have the speech tell the story
     storyOutput.textContent = story;
     storyOutput.style.color = "";
     let storyUtter = new SpeechSynthesisUtterance(story);
@@ -86,7 +86,7 @@ tellStoryBtn.addEventListener("click",()=> {
 function resetSlots() {
     for (let i = 0; i < slots.length; i++) {
         slots[i].textContent = "";
-        slots[i].style.border = ""; // Remove any border styles
+        slots[i].style.border = ""; // Remove any border styles when user presses reset
     }
     storyOutput.textContent = "";
 }
